@@ -1,0 +1,17 @@
+# One entry per target account. domain is the key everywhere.
+# ats + token come from the careers page link: boards.greenhouse.io/<token>,
+# jobs.lever.co/<token>, jobs.ashbyhq.com/<token>. size and country are optional
+# overrides; the judgment pass estimates them from the pages when absent.
+# Seed list: live public boards, verified 2026-10-08.
+accounts:
+  - {company: Attio, domain: attio.com, ats: ashby, token: attio, country: UK}
+  - {company: lemlist, domain: lemlist.com, ats: ashby, token: lemlist, country: FR, size: 150}   # size: public estimate, replace
+  - {company: Linear, domain: linear.app, ats: ashby, token: linear, country: US, size: 150}   # size: public estimate, replace
+  - {company: Lattice, domain: lattice.com, ats: greenhouse, token: lattice, country: US, size: 450}  # size: public estimate, replace
+  - {company: Cognism, domain: cognism.com, ats: greenhouse, token: cognism, country: UK, size: 400}  # size: public estimate, replace
+  - {company: Pleo, domain: pleo.io, ats: ashby, token: pleo, country: DK}
+  - {company: Apollo, domain: apollo.io, ats: greenhouse, token: apolloio, country: US, size: 900}
+  - {company: Aircall, domain: aircall.io, ats: lever, token: aircall, country: FR, size: 700}
+  - {company: Brex, domain: brex.com, ats: greenhouse, token: brex, country: US, size: 1200}
+  - {company: Ramp, domain: ramp.com, ats: ashby, token: ramp, country: US, size: 1500}
+  - {company: ZoomInfo, domain: zoominfo.com, ats: greenhouse, token: zoominfo, country: US, size: 3500}

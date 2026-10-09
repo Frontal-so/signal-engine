@@ -1,0 +1,87 @@
+# Tenant: Frontal (frontal.so), Alex Vacca. Outbound and GTM engineering agency.
+# Edit the ICP block first. Everything downstream reads it.
+tenant: frontal
+company: Frontal
+offer: >
+  AI-native revenue systems: signal-triggered outbound, ABM ads, founder content.
+  The buyer wants pipeline without adding headcount.
+
+# Check 1 (Fit): four company fields, each checkable with data. Miss one, suppress.
+icp:
+  industry: B2B software or tech-enabled services that sell to businesses
+  size: {min: 20, max: 500}
+  region: [US, CA, UK, EU]
+  must_have: a sales team or an open sales role (SDR, BDR, AE, Head of Sales) visible on the careers page
+
+# Check 2 (Person): the most senior title that owns the problem the signal creates.
+buyer_titles:
+  default: [Founder, CEO, VP Sales, CRO, Head of Growth, Head of Revenue Operations]
+  by_signal:
+    funding_round: [VP Sales, CRO, CEO]
+    new_leader: [the new leader]
+    job_posting: [VP Sales, Head of Sales]
+    job_repost: [VP Sales, Head of Sales, CEO]
+    hiring_campaign: [CRO, VP Sales]
+    product_launch: [Head of Growth, CMO, CEO]
+    market_expansion: [CRO, VP Sales]
+
+# Check 5 (Age): days before a signal type goes cold. Retire a type once replies fall to baseline.
+signal_windows_days:
+  default: 30
+  funding_round: 45
+  new_leader: 60
+  job_repost: 30
+  hiring_campaign: 30
+  job_posting: 21
+  product_launch: 21
+  market_expansion: 30
+  pricing_change: 14
+  website_change: 14
+  layoffs: 90          # hold window, not a send window
+
+# Relevance points per signal type (0-16). What a signal is worth to this offer.
+signal_priors:
+  funding_round: 16
+  new_leader: 16
+  job_repost: 14
+  hiring_campaign: 14
+  market_expansion: 12
+  job_posting: 10
+  product_launch: 10
+  acquisition: 10
+  tech_migration: 8
+  contract_win: 8
+  partnership: 6
+  pricing_change: 6
+  customer_complaint: 6
+  website_change: 4
+  layoffs: 0
+
+# Roles that count as "sales capability being added" for job signals.
+sales_role_keywords: [sdr, bdr, account executive, sales development, business development,
+  head of sales, vp sales, vp of sales, revenue, growth, demand generation, outbound, gtm,
+  go-to-market, revops, revenue operations, enterprise sales, sales manager]
+
+# Check 7 (Reach): this build has no enrichment step. Until one exists, reach is "unverified"
+# and does not fail the gate. Flip to true once a waterfall is wired in.
+require_reach: false
+# Check 3: two or more signals on one account make a stack.
+stack_min: 2
+# Check 12: 30 days of sends before any tuning.
+tuning_hold_days: 30
+# Score components, same split as the ranker so a wrong number is readable.
+scoring: {icp: 40, buyer: 15, recency: 18, relevance: 16, second: 11}
+
+# Answered once per account by Haiku, from the account's own pages.
+judgment_questions:
+  sells_to: "Does the company sell to businesses (b2b), consumers (b2c), or both?"
+  industry: "One line: what the company sells and to whom."
+  has_sales_team: "Is there evidence of a sales team: sales roles on the careers page, a talk-to-sales or book-a-demo path, named sales leaders?"
+  employee_estimate: "Best estimate of headcount from the pages, as an integer, or null."
+  hq_region: "Country or region of the headquarters, from the pages, or null."
+  open_sales_roles: "Count of open roles in sales, SDR, BDR, AE, revenue, or growth."
+  outbound_motion: "Does anything suggest they run or are building outbound: SDR roles, the word outbound in job text, sales tooling named?"
+  buyer_title: "The most senior title on the site that owns pipeline. A title only, five words max, no explanation. If none is visible, the config default for the lead signal."
+  buyer_name: "That person's name if the pages name them, else null."
+  buyer_note: "One line on how you picked the buyer title and what the pages do or do not show."
+  pain_hint: "One line, in their own words where possible: the problem a new outbound system would solve for them."
